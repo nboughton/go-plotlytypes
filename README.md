@@ -12,11 +12,10 @@ for common graph types but at the moment I feel that would be inflexible.
 
 You might also wonder why all the axes values are []string. I made a point about this in the comments
 but it's worth repeating here:
-   
-   Why are all axes strings? Because it's more flexible. You're passing this data to
-	 Plotly.js which interprets it accordingly and where strconv has no value it returns
-	 an empty string which plotly ignores but maintains the correct number of elements
-	 in the set. This removes useless visual noise from the graph and allows you to make
-	 your axes anything. Yes, there's a performance overhead to the conversion but it is
-	 on the scale of a fraction of a fraction of a second, which I see as a reasonable
-	 compromise
+
+Why are all axes strings? Because it's more flexible. You're passing this data to Plotly.js which 
+interprets it accordingly and when strconv errosr with no value it returns an empty string which 
+plotly ignores but maintains the correct number of elements in the set. This removes useless visual 
+noise from the graph and allows you to make your axes anything. Yes, there's a performance overhead 
+to the conversion but it is on the scale of a fraction of a fraction of a second, which I see as a 
+reasonable compromise
