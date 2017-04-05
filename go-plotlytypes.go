@@ -1,15 +1,5 @@
 package plotlytypes
 
-/*
-   Why are all axes strings? Because it's more flexible. You're passing this data to
-	 Plotly.js which interprets it accordingly and when strconv receives no value it returns
-	 an empty string which plotly ignores but maintains the correct number of elements
-	 in the set. This removes useless visual noise from the graph and allows you to make
-	 your axes anything. Yes, there's a performance overhead to the conversion but it is
-	 on the scale of a fraction of a fraction of a second, which I see as a reasonable
-	 compromise
-*/
-
 // Dataset is the standard dataset for most graphs
 type Dataset struct {
 	X           []string `json:"x"`
