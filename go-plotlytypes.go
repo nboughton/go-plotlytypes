@@ -51,7 +51,7 @@ func (a Axis) SubInt(idx, y int) error {
 		return err
 	}
 
-	a[idx] = strconv.Atoi(x - y)
+	a[idx] = strconv.Itoa(x - y)
 	return nil
 }
 
