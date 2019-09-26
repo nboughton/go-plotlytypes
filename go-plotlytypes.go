@@ -97,6 +97,16 @@ func (a Axis) PrependFloat(y float64) {
 	a = append([]string{strconv.FormatFloat(y, 'f', -1, 64)}, a...)
 }
 
+// AppendStr adds string y to the end of the Axis
+func (a Axis) AppendStr(y string) {
+	a = append(a, y)
+}
+
+// PrependStr adds string y to the beginning of the Axis
+func (a Axis) PrependStr(y string) {
+	a = append([]string{y}, a...)
+}
+
 // Line defines the properties of a line datatype in Plotlyjs
 type Line struct {
 	Width   float64 `json:"width"`
