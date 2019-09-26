@@ -55,6 +55,16 @@ func (a Axis) SubInt(idx, y int) error {
 	return nil
 }
 
+// AppendInt adds y to the end of the Axis
+func (a Axis) AppendInt(y int) {
+	a = append(a, strconv.Itoa(y))
+}
+
+// PrependInt adds y to the begining of the Axis
+func (a Axis) PrependInt(y int) {
+	a = append([]string{strconv.Itoa(y)}, a...)
+}
+
 // AddFloat increments Axis[idx] by y
 func (a Axis) AddFloat(idx int, y float64) error {
 	x, err := strconv.ParseFloat(a[idx], 64)
@@ -77,6 +87,25 @@ func (a Axis) SubFloat(idx int, y float64) error {
 	return nil
 }
 
+// AppendFloat adds y to the end of the Axis
+func (a Axis) AppendFloat(y float64) {
+	a = append(a, strconv.FormatFloat(y, 'f', -1, 64))
+}
+
+// PrependFloat adds y to the beginning of the Axis
+func (a Axis) PrependFloat(y float64) {
+	a = append([]string{strconv.FormatFloat(y, 'f', -1, 64)}, a...)
+}
+
+// Line defines the properties of a line datatype in Plotlyjs
+type Line struct {
+	Width   float64 `json:"width"`
+	Colour  string  `json:"color"`
+	Shape   string  `json:"shape"`
+	Dash    string  `json:"dash"`
+	Opacity float64 `json:"opacity"`
+}
+
 // Marker defines the standard marker properties for a graph in Plotlyjs
 type Marker struct {
 	Colour  string  `json:"color"`
@@ -96,13 +125,4 @@ type MarkerB struct {
 	Line     Line      `json:"line"`
 	Opacity  float64   `json:"opacity"`
 	Symbol   string    `json:"symbol"`
-}
-
-// Line defines the properties of a line datatype in Plotlyjs
-type Line struct {
-	Width   float64 `json:"width"`
-	Colour  string  `json:"color"`
-	Shape   string  `json:"shape"`
-	Dash    string  `json:"dash"`
-	Opacity float64 `json:"opacity"`
 }
