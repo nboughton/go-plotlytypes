@@ -117,30 +117,30 @@ func (a Axis) PrependStr(y string) Axis {
 
 // Line defines the properties of a line datatype in Plotlyjs
 type Line struct {
-	Width   float64 `json:"width"`
-	Colour  string  `json:"color"`
-	Shape   string  `json:"shape"`
-	Dash    string  `json:"dash"`
-	Opacity float64 `json:"opacity"`
+	Width   float64 `json:"width,omitempty"`
+	Colour  string  `json:"color,omitempty"`
+	Shape   string  `json:"shape,omitempty"`
+	Dash    string  `json:"dash,omitempty"`
+	Opacity float64 `json:"opacity,omitempty"`
 }
 
 // Marker defines the standard marker properties for a graph in Plotlyjs
 type Marker struct {
-	Colour  string  `json:"color"`
-	Size    float64 `json:"size"`
-	Line    Line    `json:"line"`
-	Opacity float64 `json:"opacity"`
-	Symbol  string  `json:"symbol"`
+	Colour  string  `json:"color,omitempty"`
+	Size    float64 `json:"size,omitempty"`
+	Line    Line    `json:"line,omitempty"`
+	Opacity float64 `json:"opacity,omitempty"`
+	Symbol  string  `json:"symbol,omitempty"`
 }
 
 // MarkerB defines the properties of a Bubble graph marker where size values
 // are a float64 array
 type MarkerB struct {
-	Colour   string    `json:"color"`
-	Size     []float64 `json:"size"`
-	SizeMode string    `json:"sizemode"`
-	SizeRef  float64   `json:"sizeref"`
-	Line     Line      `json:"line"`
-	Opacity  float64   `json:"opacity"`
-	Symbol   string    `json:"symbol"`
+	Colour   string    `json:"color,omitempty"`
+	Size     []float64 `json:"size,omitempty"`
+	SizeMode string    `json:"sizemode,omitempty"`
+	SizeRef  float64   `json:"sizeref,omitempty"`
+	Line     Line      `json:"line,omitempty"`
+	Opacity  float64   `json:"opacity,omitempty"`
+	Symbol   string    `json:"symbol,omitempty"`
 }
