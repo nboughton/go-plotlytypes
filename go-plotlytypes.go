@@ -10,8 +10,8 @@ type Dataset struct {
 	Name        string `json:"name"`
 	Mode        string `json:"mode"`
 	Type        string `json:"type"`
-	Line        Line   `json:"line"`
-	Marker      Marker `json:"marker"`
+	Line        Line   `json:"line,omitempty"`
+	Marker      Marker `json:"marker,omitempty"`
 	ConnectGaps bool   `json:"connectgaps"`
 }
 
@@ -24,8 +24,8 @@ type DatasetB struct {
 	Name        string  `json:"name"`
 	Mode        string  `json:"mode"`
 	Type        string  `json:"type"`
-	Line        Line    `json:"line"`
-	Marker      MarkerB `json:"marker"`
+	Line        Line    `json:"line,omitempty"`
+	Marker      MarkerB `json:"marker,omitempty"`
 	ConnectGaps bool    `json:"connectgaps"`
 }
 
@@ -33,78 +33,86 @@ type DatasetB struct {
 // represented as strings
 type Axis []string
 
-// AddInt increments Axis[idx] by y
-func (a Axis) AddInt(idx, y int) error {
+// AddInt increments Axis[idx] by y and returns a new Axis
+// Usage: dataset.Y = dataset.Y.AddInt(1, 1)
+func (a Axis) AddInt(idx, y int) (Axis, error) {
 	x, err := strconv.Atoi(a[idx])
 	if err != nil {
-		return err
+		x = 0
 	}
 
 	a[idx] = strconv.Itoa(x + y)
-	return nil
+	return a, nil
 }
 
-// SubInt decrements Axis[idx] by y
-func (a Axis) SubInt(idx, y int) error {
+// SubInt decrements Axis[idx] by y and returns a new Axis
+// Usage: dataset.Y = dataset.Y.AddInt(1, 1)
+func (a Axis) SubInt(idx, y int) (Axis, error) {
 	x, err := strconv.Atoi(a[idx])
 	if err != nil {
-		return err
+		x = 0
 	}
 
 	a[idx] = strconv.Itoa(x - y)
-	return nil
+	return a, nil
 }
 
 // AppendInt adds y to the end of the Axis
-func (a Axis) AppendInt(y int) {
+func (a Axis) AppendInt(y int) Axis {
 	a = append(a, strconv.Itoa(y))
+	return a
 }
 
 // PrependInt adds y to the begining of the Axis
-func (a Axis) PrependInt(y int) {
+func (a Axis) PrependInt(y int) Axis {
 	a = append([]string{strconv.Itoa(y)}, a...)
+	return a
 }
 
 // AddFloat increments Axis[idx] by y
-func (a Axis) AddFloat(idx int, y float64) error {
+func (a Axis) AddFloat(idx int, y float64) (Axis, error) {
 	x, err := strconv.ParseFloat(a[idx], 64)
 	if err != nil {
-		return err
+		return a, err
 	}
 
 	a[idx] = strconv.FormatFloat(x+y, 'f', -1, 64)
-	return nil
+	return a, nil
 }
 
 // SubFloat decrements Axis[idx] by y
-func (a Axis) SubFloat(idx int, y float64) error {
+func (a Axis) SubFloat(idx int, y float64) (Axis, error) {
 	x, err := strconv.ParseFloat(a[idx], 64)
 	if err != nil {
-		return err
+		return a, err
 	}
 
 	a[idx] = strconv.FormatFloat(x-y, 'f', -1, 64)
-	return nil
+	return a, nil
 }
 
 // AppendFloat adds y to the end of the Axis
-func (a Axis) AppendFloat(y float64) {
+func (a Axis) AppendFloat(y float64) Axis {
 	a = append(a, strconv.FormatFloat(y, 'f', -1, 64))
+	return a
 }
 
 // PrependFloat adds y to the beginning of the Axis
-func (a Axis) PrependFloat(y float64) {
+func (a Axis) PrependFloat(y float64) Axis {
 	a = append([]string{strconv.FormatFloat(y, 'f', -1, 64)}, a...)
+	return a
 }
 
 // AppendStr adds string y to the end of the Axis
-func (a Axis) AppendStr(y string) {
+func (a Axis) AppendStr(y string) Axis {
 	a = append(a, y)
+	return a
 }
 
 // PrependStr adds string y to the beginning of the Axis
-func (a Axis) PrependStr(y string) {
+func (a Axis) PrependStr(y string) Axis {
 	a = append([]string{y}, a...)
+	return a
 }
 
 // Line defines the properties of a line datatype in Plotlyjs
